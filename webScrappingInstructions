@@ -1,0 +1,98 @@
+			-- Flujo B�sico WS --
+
+	1. Seleccionar el Contenido
+	2. Obtener la URL inicial
+	3. Obtener el HTML de la URL
+	4. Parsear el texto del HTML
+	5. Seleccionar datos
+	6. Procesar los datos
+	7. (Repetir 3 si hay m�s URL)
+
+			-- Comandos --
+
+	import requests
+	import bs4
+        import simplejson as json
+	req = requests.get("URL") <- Soltar� una lista de elementos
+	req.nombre del elemento
+	from bs4 import BeautifulSoup
+	soup = BeautifulSoup(req.text, "html.parser")
+	soup.etiquetatexto <- Devuelve la primer etiqueta encontrada, se puede iterar sobre la etiqueta
+	nombrevar = soup.find_all("etiqueta", class_="nombre de clase")
+	len(nombrevar) <- Devuelve cantidad de etiquetas que coinciden con lo pedido en find_all
+
+
+			-- Comandos Iterar: Ejemplo Paises Union --
+
+	countries_collection = []
+	countries_html_table = soup.find_all("table", class_="wikitable")[0]
+	for tr in countries_html_table.find_all("tr")
+	td = tr.find_all("td")
+	if not td
+	th = tr.find_all("th")
+//	header = [slugify(h.text) for h in th] <- Solo al importar el slugify antes
+	else:
+	country = dict()
+	for i, h in enumerate(header):
+	country[h] = td[i].text
+	countries_collection.append(country)
+	print(json.dumps(countries_collection, indent = 4, ensureascii=False, encoding="utf-8"))
+
+			-- Comandos: Idealista --
+
+	req = requests.get("URL Idealista")
+	data = req.text
+	soup = BeautifulSoup(data, "html.parse")
+	idealista_houses = list()
+	houses = soup.find_all("div", class_="item")
+	for house in houses:
+	item_link = house.find("a", class_="item-link")
+	name = item_link.text
+	url = item_link["href"]
+	price = house.find("span", class_="item_price").text
+	details = house.find_all("span", class_="item-detail")
+	rooms = get_data_safely(details, 0, "")
+	size = get_data_safely(details, 2, "")
+	try:
+	phone= house.find("a", class_="item-clickable-phone").text
+	except AttributeError:
+	phone = ""
+	idealista_houses_append({
+	'name':name,
+	'url':url,
+	'price':price,
+	'rooms':rooms,
+	'size':size,
+	'moreinfo':moreinfo,
+	'phone':phone
+	})
+	print(json.dumps(idealista_houses, indent=4))
+
+
+	root_url = "https://www.idealista.com"
+
+Para continuar buscando en otra pagina:
+
+	next_url = soup.find("a", class_="clase del boton con el que se avanza de pagina")
+	if not next_url:
+		break
+	active_url = next_url["href"]
+
+	print(json.dumps(idealista_houses, indent="4"))
+
+
+				-- Problemas o Retos --
+	GET vs POST
+	Cookies <- Hashes e informaci�n que se atraviesa
+	Comportamiento Rob�tico <- Captchas, Recaptchas
+	Multi-hilo
+	Multi-maquinas
+	Banear IPs <- Se relaciona con las multi-m�quinas para evitar baneos de IP por la actividad anomalo que genera el webscrapping para el servidor
+	Cambios en el HTML
+
+				-- proyectos --
+
+	TIPI Ciudadano
+	LibreBORME
+	Proyecto Colibri
+	BOE API <---!!!!!!
