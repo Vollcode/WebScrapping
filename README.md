@@ -5,31 +5,31 @@
 ## Primero de todo, necesitamos tener instalado el software adecuado para llevar a cabo la tarea.
 
 
-#### First, download node from its [website](https://nodejs.org/en/download/)
+#### Para empezar, tenemos que descargar node de su [web](https://nodejs.org/en/download/)
 
-#### We can check that npm has been correctly installed with:
+#### Podemos comprobar que npm se ha instalado correctamente con el siguiente comando:
 
 ```
 npm -v
 ```
 
-#### Then, we proceed to update npm
+#### Despues, procedemos a actualizar npm
 
 ```
 npm install -g npm@latest
 ```
 
-#### Next, we have to install python
+#### Lo siguiente es instalar python
 ```
 npm install -g python
 ```
 
-#### Now we need the python package manager, Pip
+#### Ahora necesitamos el sistema de manejo de librerías de python, Pip
 ```
 npm install -g python-pip
 ```
 
-#### We have python installed, we now need certain packages to do the web scrapping
+#### Una vez tengamos Pip instalado, necesitamos ciertas librerías para poder realizar el web scrapping:
 ```
 pip install requests
 pip install python-slugify
